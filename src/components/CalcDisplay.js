@@ -1,9 +1,10 @@
-function CalcDisplay({display}) {
+function CalcDisplay({display, result, operator}) {
 
 
   return (
     <div className="calc-display">
-      <input type="text" readOnly  value={display}/>
+      <p className="history">{result} {operator}</p>
+      <input type="number" readOnly  value={display}/>
     </div>
   );
   

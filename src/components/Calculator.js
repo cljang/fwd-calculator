@@ -3,19 +3,27 @@ import CalcButtons from "./CalcButtons";
 import { useState } from "react";
 
 function Calculator() {
-  const [result, setResult] = useState(0);
+  // Current Display
   const [display, setDisplay] = useState("");
+  // Stored Result
+  const [result, setResult] = useState();
+  // Selected Operation
+  const [operator, setOperator] = useState("");
 
   return (
     <div className="calculator">
       <CalcDisplay 
         display={display}
+        result={result}
+        operator={operator}
       />
       <CalcButtons 
         display={display} 
         setDisplay={setDisplay}
         result={result}
         setResult={setResult}
+        operator={operator}
+        setOperator={setOperator}
       />
     </div>
   );

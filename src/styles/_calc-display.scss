@@ -6,6 +6,11 @@
   background-color: $main-very-light;
   border-radius: 0.5rem;
 
+  .history {
+    margin-top: 0;
+    min-height: 1.5rem;
+  }
+
   input {
     width: 100%;
     background: transparent;
