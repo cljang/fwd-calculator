@@ -2,7 +2,6 @@ import calculatorButtons from "../globals/calculator-button-data"
 
 
 function CalcButtons({display, setDisplay, result, setResult, operator, setOperator, clearDisplay, clearResult, clearOperator, wasEvaluated, setWasEvaluated}) { 
-
   // Function to handle number button clicks
   const handleNumber = (button) => {
     // If the final answer was previously evaluated, any new number inputs will overwrite the display
@@ -53,6 +52,14 @@ function CalcButtons({display, setDisplay, result, setResult, operator, setOpera
         case "\u00d7": // Multiply
           calculation = (result ? parseFloat(result) : 1) * (display ? parseFloat(display) : 1)
           break;
+  
+        // case "%": // Percent
+        //   calculation = (display ? parseFloat(display) : 0) * 100
+        //   break;
+
+        // case "\u221a": // Square root
+        //   calculation = Math.sqrt(display ? parseFloat(display) : 0)
+        //   break;
                 
         default:
           break;
@@ -110,12 +117,38 @@ function CalcButtons({display, setDisplay, result, setResult, operator, setOpera
   const handleDecimal = (button) => {
     // If the final answer was previously evaluated, any new number inputs will overwrite the display
     if (wasEvaluated) {
-      setDisplay("" + button.value)
+      setDisplay("" + button.value);
       setWasEvaluated(false);
     } else if (display.indexOf(".") === -1) {
-      setDisplay(display + button.value)
+      setDisplay(display + button.value);
     }
   }
+
+  // Function to handle square root
+  const handleSquareRoot = (button) => {
+    // Only change the result if there is a display value
+    if (display) {
+      let calculation = Math.sqrt(display ? parseFloat(display) : 0);
+      setResult(display);
+      setDisplay("" + calculation);
+      setOperator(button.text);
+      setWasEvaluated(true);
+    }
+  }
+
+  // Function to handle percent
+  const handlePercent = (button) => {
+    // Only change the result if there is a display value
+    if (display) {
+      let calculation = (display ? parseFloat(display) : 0) / 100;
+      setResult(display);
+      setDisplay("" + calculation);
+      setOperator(button.text);
+      setWasEvaluated(true);
+    }
+  }
+
+  
 
   const handleButtonClick = (button) => {
     switch (button.type) {
@@ -142,6 +175,14 @@ function CalcButtons({display, setDisplay, result, setResult, operator, setOpera
       case "decimal":
         handleDecimal(button);
         break;
+
+      case "square-root":
+        handleSquareRoot(button);
+        break
+
+      case "percent":
+        handlePercent(button);
+        break
           
       default:
         break;
