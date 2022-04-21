@@ -106,6 +106,17 @@ function CalcButtons({display, setDisplay, result, setResult, operator, setOpera
     }
   }
 
+  // Function to handle decimal button clicks
+  const handleDecimal = (button) => {
+    // If the final answer was previously evaluated, any new number inputs will overwrite the display
+    if (wasEvaluated) {
+      setDisplay("" + button.value)
+      setWasEvaluated(false);
+    } else if (display.indexOf(".") === -1) {
+      setDisplay(display + button.value)
+    }
+  }
+
   const handleButtonClick = (button) => {
     switch (button.type) {
       case "number":
@@ -126,6 +137,10 @@ function CalcButtons({display, setDisplay, result, setResult, operator, setOpera
   
       case "sign":
         handleSign();
+        break;
+  
+      case "decimal":
+        handleDecimal(button);
         break;
           
       default:
