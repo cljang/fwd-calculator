@@ -1,0 +1,9 @@
+@use "variables" as *;
+
+.calculator {
+  background-color: $main-dark;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  max-width: 25rem;
+  border-radius: 1rem;
+}

@@ -1,0 +1,19 @@
+@use "variables" as *;
+
+.calc-display {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: $main-very-light;
+  border-radius: 0.5rem;
+
+  input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-radius: 0.5rem;
+    color: $main-dark;
+    font-family: $font-family;
+    font-size: 3rem;
+    text-align: right;
+  }
+}
