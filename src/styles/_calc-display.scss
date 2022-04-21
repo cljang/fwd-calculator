@@ -5,6 +5,7 @@
   padding: 0.5rem;
   background-color: $main-very-light;
   border-radius: 0.5rem;
+  overflow: hidden;
 
   .calculation-history {
     margin-top: 0;
@@ -12,9 +13,9 @@
   }
 
   .display-value {
+    min-height: 3.5rem;
+    margin: 0;
     width: 100%;
-    background: transparent;
-    border: none;
     border-radius: 0.5rem;
     color: $main-dark;
     font-family: $font-family;
