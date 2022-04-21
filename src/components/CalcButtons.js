@@ -3,6 +3,7 @@ import calculatorButtons from "../globals/calculator-button-data"
 
 function CalcButtons({display, setDisplay, result, setResult, operator, setOperator, clearDisplay, clearResult, clearOperator, wasEvaluated, setWasEvaluated}) { 
 
+  // Function to handle number button clicks
   const handleNumber = (button) => {
     // If the final answer was previously evaluated, any new number inputs will overwrite the display
     if (wasEvaluated) {
@@ -19,6 +20,7 @@ function CalcButtons({display, setDisplay, result, setResult, operator, setOpera
     }
   }
   
+  // Function to handle clear and all clear button clicks
   const handleClear = (button) => {
     clearDisplay()
 
@@ -93,7 +95,10 @@ function CalcButtons({display, setDisplay, result, setResult, operator, setOpera
     }
   }
 
+  // Function to handle sign button clicks
   const handleSign = () => {
+    // If the first character is a negative-sign (-) then remove it from the display
+    // Else add a negative-sign to the display
     if (display.slice(0,1) === "-") {
       setDisplay(display.slice(1));
     } else {
