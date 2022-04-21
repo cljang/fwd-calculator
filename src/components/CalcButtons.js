@@ -8,9 +8,13 @@ function CalcButtons({display, setDisplay, result, setResult, operator, setOpera
     if (wasEvaluated) {
       setDisplay("" + button.value)
       setWasEvaluated(false);
-    } else if (display === "0") {
+    } 
+    // Else if the display is 0, any new number input will replace the display (this prevents leading 0's)
+    else if (display === "0") {
       setDisplay("" + button.value)
-    } else {
+    } 
+    // Else keep appending new number inputs onto the end of the display value number string
+    else {
       setDisplay(display + button.value)
     }
   }
@@ -87,7 +91,14 @@ function CalcButtons({display, setDisplay, result, setResult, operator, setOpera
       clearOperator();
       setWasEvaluated(true);
     }
-  
+  }
+
+  const handleSign = () => {
+    if (display.slice(0,1) === "-") {
+      setDisplay(display.slice(1));
+    } else {
+      setDisplay("-" + display);
+    }
   }
 
   const handleButtonClick = (button) => {
@@ -106,6 +117,10 @@ function CalcButtons({display, setDisplay, result, setResult, operator, setOpera
   
       case "enter":
         handleEqual();
+        break;
+  
+      case "sign":
+        handleSign();
         break;
           
       default:

@@ -38,11 +38,11 @@ function Calculator() {
         setResult={setResult}
         operator={operator}
         setOperator={setOperator}
+        wasEvaluated={wasEvaluated}
+        setWasEvaluated={setWasEvaluated}
         clearDisplay={clearDisplay}
         clearResult={clearResult}
         clearOperator={clearOperator}
-        wasEvaluated={wasEvaluated}
-        setWasEvaluated={setWasEvaluated}
       />
     </div>
   );
