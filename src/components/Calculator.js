@@ -9,6 +9,20 @@ function Calculator() {
   const [result, setResult] = useState();
   // Selected Operation
   const [operator, setOperator] = useState("");
+  // Selected Operation
+  const [wasEvaluated, setWasEvaluated] = useState(false);
+
+  const clearDisplay = () => {
+    setDisplay("")
+  }
+
+  const clearResult = () => {
+    setResult()
+  }
+
+  const clearOperator = () => {
+    setOperator("")
+  }
 
   return (
     <div className="calculator">
@@ -24,6 +38,11 @@ function Calculator() {
         setResult={setResult}
         operator={operator}
         setOperator={setOperator}
+        clearDisplay={clearDisplay}
+        clearResult={clearResult}
+        clearOperator={clearOperator}
+        wasEvaluated={wasEvaluated}
+        setWasEvaluated={setWasEvaluated}
       />
     </div>
   );

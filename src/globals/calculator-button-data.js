@@ -101,18 +101,18 @@ export const calculatorButtons = [
         text: 0,
         value: 0,
     },
-    // {
-    //     type: 'decimal',
-    //     className: 'decimal',
-    //     text: '.',
-    //     value: '.',
-    // },
-    // {
-    //     type: 'sign',
-    //     className: 'sign',
-    //     text: '+/-',
-    //     value: '+/-',
-    // },
+    {
+        type: 'decimal',
+        className: 'decimal',
+        text: '.',
+        value: '.',
+    },
+    {
+        type: 'sign',
+        className: 'sign',
+        text: '+/-',
+        value: '+/-',
+    },
     // {
     //     type: 'operator',
     //     className: 'percent',

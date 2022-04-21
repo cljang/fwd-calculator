@@ -3,8 +3,8 @@ function CalcDisplay({display, result, operator}) {
 
   return (
     <div className="calc-display">
-      <p className="history">{result} {operator}</p>
-      <input type="number" readOnly  value={display}/>
+      <p className="calculation-history">{result} {operator}</p>
+      <input type="number" readOnly className="display-value" value={display}/>
     </div>
   );
   
