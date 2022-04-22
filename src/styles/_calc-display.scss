@@ -5,7 +5,6 @@
   padding: 0.5rem;
   background-color: $main-very-light;
   border-radius: 0.5rem;
-  overflow: hidden;
 
   .calculation-history {
     margin-top: 0;
@@ -21,5 +20,6 @@
     font-family: $font-family;
     font-size: 3rem;
     text-align: right;
+    overflow: hidden;
   }
 }

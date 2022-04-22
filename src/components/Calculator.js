@@ -1,6 +1,5 @@
 import CalcDisplay from "./CalcDisplay";
 import CalcButtons from "./CalcButtons";
-import calculatorButtons from "../globals/calculator-button-data"
 import { useState } from "react";
 
 function Calculator() {
@@ -13,6 +12,7 @@ function Calculator() {
   // Selected Operation
   const [wasEvaluated, setWasEvaluated] = useState(false);
 
+  // Reset functions for states
   const clearDisplay = () => {
     setDisplay("")
   }
@@ -52,47 +52,78 @@ function Calculator() {
     }
   }
 
+  // Function to format the calculation values to scientific notation if they are too long
+  const formatCalculation = (calculation) => {
+    // Format output precision 
+    const maxStringLength = 13;
+    const decimalPrecision = 12;
+    const exponentPrecision = 7
+    // Get length of calculation as a string to get the length of the input
+    let calculationStringLength = ("" + calculation).length;
+    // If the calculation string is too large to display, then we need to adjust the calculation precision
+    if (calculationStringLength > maxStringLength) {
+      // Get base 10 exponent of calculation
+      const base10Exp = Math.log(Math.abs(calculation)) / Math.log(10);
+      // If the base 10 exponenent (sci. notation exponent is larger than allowed, or negative, use the smaller exponentPrecision
+      // Else use the larger decimal precision
+      if ((base10Exp > decimalPrecision) || (base10Exp < 0)) {
+        calculation = Number(calculation.toExponential());
+        calculation = calculation.toPrecision(exponentPrecision);
+      } else {
+        calculation = calculation.toPrecision(decimalPrecision);
+      }
+    }
+    return calculation
+  }
+
   // Calculation returns the resulting value when using the current operator on the previous result value and the current display value
   // If no calculation was done, returns null
-  const calculate = () => {
+  const calculate = (operator) => {
     let calculation = null;
     // If there is an existing operator, use it to apply the current display value to the stored result
     // If there is no result or display value, replace it with 0 or 1 (for multiply/divide)
     if (operator) {
+      // Perform Calculation
       switch (operator) {
         case "+": // Add
-          calculation = (result ? parseFloat(result) : 0) + (display ? parseFloat(display) : 0)
+          calculation = (result ? Number(result) : 0) + (display ? Number(display) : 0)
           break;
   
         case "-": // Subtract
-          calculation = (result ? parseFloat(result) : 0) - (display ? parseFloat(display) : 0)
+          calculation = (result ? Number(result) : 0) - (display ? Number(display) : 0)
           break;
     
         case "\u00f7": // Divide
-          calculation = (result ? parseFloat(result) : 1) / (display ? parseFloat(display) : 1)
+          calculation = (result ? Number(result) : 1) / (display ? Number(display) : 1)
           break;
   
         case "\u00d7": // Multiply
-          calculation = (result ? parseFloat(result) : 1) * (display ? parseFloat(display) : 1)
+          calculation = (result ? Number(result) : 1) * (display ? Number(display) : 1)
           break;
   
-        // case "%": // Percent
-        //   calculation = (display ? parseFloat(display) : 0) * 100
-        //   break;
+        case "%": // Percent
+          calculation = (display ? Number(display) : 0) / 100
+          break;
 
-        // case "\u221a": // Square root
-        //   calculation = Math.sqrt(display ? parseFloat(display) : 0)
-        //   break;
+        case "\u221a": // Square root
+          calculation = Math.sqrt(display ? Number(display) : 0)
+          break;
+
+          
+        case "+/-": // Sign
+          calculation = (display ? -Number(display) : 0)
+          break;
                 
         default:
           break;
       }
+      calculation = formatCalculation(calculation);
     }
     
     return calculation;
   } 
 
-  // Handle selection of mathematical operators
+  // Handle selection of general mathematical operators
   const handleOperator = (button) => {
     // Only change the result if there is a display value
     if (display) {
@@ -100,7 +131,9 @@ function Calculator() {
       if (!result) {
         setResult(display);
       } else {
-        let calculation = calculate();
+        // Perform a calculation with the currently selected operator
+        let calculation = calculate(operator);
+        // If a valid calculation was performed, then return the 
         if (calculation !== null) {
           setResult(calculation)
         }
@@ -116,23 +149,12 @@ function Calculator() {
   // Handle Equal button clicks
   const handleEqual = () => {
     // Perform any outstanding calculations and update the display
-    let calculation = calculate()
+    let calculation = calculate(operator)
     if (calculation !== null) {
       setDisplay("" + calculation);
       clearResult();
       clearOperator();
       setWasEvaluated(true);
-    }
-  }
-
-  // Function to handle sign button clicks
-  const handleSign = () => {
-    // If the first character is a negative-sign (-) then remove it from the display
-    // Else add a negative-sign to the display
-    if (display.slice(0,1) === "-") {
-      setDisplay(display.slice(1));
-    } else {
-      setDisplay("-" + display);
     }
   }
 
@@ -147,31 +169,18 @@ function Calculator() {
     }
   }
 
-  // Function to handle square root
-  const handleSquareRoot = (button) => {
+  // Function to handle unary operators
+  // Unary operators are operations that require a single input (e.g square-root, percent)
+  const handleUnaryOperator = (button) => {
     // Only change the result if there is a display value
     if (display) {
-      let calculation = Math.sqrt(display ? parseFloat(display) : 0);
-      setResult(display);
+      let calculation = calculate(button.text);
+      // setResult(display);
       setDisplay("" + calculation);
-      setOperator(button.text);
+      // setOperator(button.text);
       setWasEvaluated(true);
     }
   }
-
-  // Function to handle percent
-  const handlePercent = (button) => {
-    // Only change the result if there is a display value
-    if (display) {
-      let calculation = (display ? parseFloat(display) : 0) / 100;
-      setResult(display);
-      setDisplay("" + calculation);
-      setOperator(button.text);
-      setWasEvaluated(true);
-    }
-  }
-
-  
 
   const handleButtonClick = (button) => {
     switch (button.type) {
@@ -191,20 +200,12 @@ function Calculator() {
         handleEqual();
         break;
   
-      case "sign":
-        handleSign();
-        break;
-  
       case "decimal":
         handleDecimal(button);
         break;
 
-      case "square-root":
-        handleSquareRoot(button);
-        break
-
-      case "percent":
-        handlePercent(button);
+      case "unary-operator":
+        handleUnaryOperator(button);
         break
           
       default:

@@ -108,19 +108,19 @@ export const calculatorButtons = [
         value: '.',
     },
     {
-        type: 'sign',
+        type: 'unary-operator',
         className: 'sign',
         text: '+/-',
         value: '+/-',
     },
     {
-        type: 'percent',
+        type: 'unary-operator',
         className: 'percent',
         text: '%',
         value: 'Percent',
     },
     {
-        type: 'square-root',
+        type: 'unary-operator',
         className: 'square-root',
         text: '\u221a',
         value: 'Square Root',
