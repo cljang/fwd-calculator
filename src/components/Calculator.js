@@ -2,6 +2,8 @@ import CalcDisplay from "./CalcDisplay";
 import CalcButtons from "./CalcButtons";
 import { useState } from "react";
 
+let wasEvaluated = false;
+
 function Calculator() {
   // Current Display
   const [display, setDisplay] = useState("");
@@ -10,7 +12,8 @@ function Calculator() {
   // Selected Operation
   const [operator, setOperator] = useState("");
   // Selected Operation
-  const [wasEvaluated, setWasEvaluated] = useState(false);
+  // const [wasEvaluated, setWasEvaluated] = useState(false);
+
 
   // Reset functions for states
   const clearDisplay = () => {
@@ -30,7 +33,7 @@ function Calculator() {
     // If the final answer was previously evaluated, any new number inputs will overwrite the display
     if (wasEvaluated) {
       setDisplay("" + button.value)
-      setWasEvaluated(false);
+      wasEvaluated = false;
     } 
     // Else if the display is 0, any new number input will replace the display (this prevents leading 0's)
     else if (display === "0") {
@@ -54,6 +57,7 @@ function Calculator() {
 
   // Function to format the calculation values to scientific notation if they are too long
   const formatCalculation = (calculation) => {
+    calculation = Number(calculation);
     // Format output precision 
     const maxStringLength = 13;
     const decimalPrecision = 11;
@@ -153,7 +157,7 @@ function Calculator() {
       setDisplay("" + calculation);
       clearResult();
       clearOperator();
-      setWasEvaluated(true);
+      wasEvaluated = true;
     }
   }
 
@@ -162,7 +166,7 @@ function Calculator() {
     // If the final answer was previously evaluated, any new number inputs will overwrite the display
     if (wasEvaluated) {
       setDisplay("" + button.value);
-      setWasEvaluated(false);
+      wasEvaluated = false;
     } else if (display.indexOf(".") === -1) {
       setDisplay(display + button.value);
     }
@@ -174,10 +178,35 @@ function Calculator() {
     // Only change the result if there is a display value
     if (display) {
       let calculation = calculate(button.text);
-      // setResult(display);
       setDisplay("" + calculation);
-      // setOperator(button.text);
-      setWasEvaluated(true);
+      wasEvaluated = true;
+    }
+  }
+
+  const handleMemory = (button) => {
+    switch (button.value) {
+      case "Memory Save":
+        
+        break;
+        
+      case "Memory Clear":
+        
+        break;
+        
+      case "Memory Recall":
+        
+      break;
+    
+      case "Memory Addition":
+        
+        break;
+    
+      case "Memory Subtract":
+        
+        break;
+    
+      default:
+        break;
     }
   }
 
@@ -205,6 +234,10 @@ function Calculator() {
 
       case "unary-operator":
         handleUnaryOperator(button);
+        break
+      
+      case "memory":
+        handleMemory(button);
         break
           
       default:
