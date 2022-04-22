@@ -30,6 +30,10 @@ function Calculator() {
     setOperator("")
   }
 
+  const clearMemory = () => {
+    setMemory()
+  }
+
   // Function to handle number button clicks
   const handleNumber = (button) => {
     // If the final answer was previously evaluated, any new number inputs will overwrite the display
@@ -54,6 +58,7 @@ function Calculator() {
     if (button.value === "All Clear") {
       clearResult()
       clearOperator()
+      clearMemory();
     }
   }
 
@@ -186,9 +191,10 @@ function Calculator() {
   }
 
   const handleMemory = (button) => {
+    let calculation;
     switch (button.value) {
       case "Memory Save":
-        setMemory(display);
+        setMemory(formatCalculation(display));
         break;
         
       case "Memory Clear":
@@ -196,15 +202,17 @@ function Calculator() {
         break;
         
       case "Memory Recall":
-        setDisplay(memory)
+        setDisplay(formatCalculation(memory))
         break;
     
       case "Memory Addition":
-        setMemory(Number(memory) + Number(display))
+        calculation = Number(memory) + Number(display);
+        setMemory(formatCalculation(calculation))
         break;
     
       case "Memory Subtract":
-        setMemory(Number(memory) - Number(display))
+        calculation = Number(memory) - Number(display);
+        setMemory(formatCalculation(calculation))
         break;
     
       default:
@@ -253,6 +261,7 @@ function Calculator() {
         display={display}
         result={result}
         operator={operator}
+        memory={memory}
       />
       <CalcButtons 
         handleButtonClick={handleButtonClick}

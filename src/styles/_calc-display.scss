@@ -1,17 +1,33 @@
 @use "variables" as *;
 
 .calc-display {
+  display: grid;
+  grid-template-areas: 
+    "history  memory"
+    "display  display";
+  grid-template-columns: repeat(2, 1fr);
   margin-bottom: 1rem;
   padding: 0.5rem;
   background-color: $main-very-light;
   border-radius: 0.5rem;
 
-  .calculation-history {
+  .small-display {
     margin-top: 0;
     min-height: 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  .calculation-history {
+    grid-area: history;
+  }
+
+  .memory {
+    grid-area: memory;
+    text-align: right;
   }
 
   .display-value {
+    grid-area: display;
     min-height: 3.5rem;
     margin: 0;
     width: 100%;
