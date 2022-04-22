@@ -13,6 +13,8 @@ function Calculator() {
   const [operator, setOperator] = useState("");
   // Selected Operation
   // const [wasEvaluated, setWasEvaluated] = useState(false);
+  // Memory Value
+  const [memory, setMemory] = useState()
 
 
   // Reset functions for states
@@ -186,23 +188,23 @@ function Calculator() {
   const handleMemory = (button) => {
     switch (button.value) {
       case "Memory Save":
-        
+        setMemory(display);
         break;
         
       case "Memory Clear":
-        
+        setMemory()
         break;
         
       case "Memory Recall":
-        
-      break;
+        setDisplay(memory)
+        break;
     
       case "Memory Addition":
-        
+        setMemory(Number(memory) + Number(display))
         break;
     
       case "Memory Subtract":
-        
+        setMemory(Number(memory) - Number(display))
         break;
     
       default:
