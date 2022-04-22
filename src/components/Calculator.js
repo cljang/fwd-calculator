@@ -56,8 +56,8 @@ function Calculator() {
   const formatCalculation = (calculation) => {
     // Format output precision 
     const maxStringLength = 13;
-    const decimalPrecision = 12;
-    const exponentPrecision = 7
+    const decimalPrecision = 11;
+    const exponentPrecision = 6;
     // Get length of calculation as a string to get the length of the input
     let calculationStringLength = ("" + calculation).length;
     // If the calculation string is too large to display, then we need to adjust the calculation precision
@@ -66,9 +66,8 @@ function Calculator() {
       const base10Exp = Math.log(Math.abs(calculation)) / Math.log(10);
       // If the base 10 exponenent (sci. notation exponent is larger than allowed, or negative, use the smaller exponentPrecision
       // Else use the larger decimal precision
-      if ((base10Exp > decimalPrecision) || (base10Exp < 0)) {
-        calculation = Number(calculation.toExponential());
-        calculation = calculation.toPrecision(exponentPrecision);
+      if ((base10Exp > decimalPrecision) || (base10Exp < 0) ) {
+        calculation = calculation.toExponential(exponentPrecision);
       } else {
         calculation = calculation.toPrecision(decimalPrecision);
       }
@@ -86,32 +85,32 @@ function Calculator() {
       // Perform Calculation
       switch (operator) {
         case "+": // Add
-          calculation = (result ? Number(result) : 0) + (display ? Number(display) : 0)
+          calculation = (result ? parseFloat(result) : 0) + (display ? parseFloat(display) : 0)
           break;
   
         case "-": // Subtract
-          calculation = (result ? Number(result) : 0) - (display ? Number(display) : 0)
+          calculation = (result ? parseFloat(result) : 0) - (display ? parseFloat(display) : 0)
           break;
     
         case "\u00f7": // Divide
-          calculation = (result ? Number(result) : 1) / (display ? Number(display) : 1)
+          calculation = (result ? parseFloat(result) : 1) / (display ? parseFloat(display) : 1)
           break;
   
         case "\u00d7": // Multiply
-          calculation = (result ? Number(result) : 1) * (display ? Number(display) : 1)
+          calculation = (result ? parseFloat(result) : 1) * (display ? parseFloat(display) : 1)
           break;
   
         case "%": // Percent
-          calculation = (display ? Number(display) : 0) / 100
+          calculation = (display ? parseFloat(display) : 0) / 100
           break;
 
         case "\u221a": // Square root
-          calculation = Math.sqrt(display ? Number(display) : 0)
+          calculation = Math.sqrt(display ? parseFloat(display) : 0)
           break;
 
           
         case "+/-": // Sign
-          calculation = (display ? -Number(display) : 0)
+          calculation = (display ? -parseFloat(display) : 0)
           break;
                 
         default:
