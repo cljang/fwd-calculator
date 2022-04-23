@@ -1,5 +1,11 @@
 @use "variables" as *;
 
 body {
-  font-family: $font-family;
+  font-family: $san-serif-font;
+  font-size: 1.125rem;
+}
+
+h1 {
+  color: $main-dark;
+  text-align: center;
 }

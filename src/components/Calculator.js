@@ -11,53 +11,51 @@ function Calculator() {
   const [result, setResult] = useState();
   // Selected Operation
   const [operator, setOperator] = useState("");
-  // Selected Operation
-  // const [wasEvaluated, setWasEvaluated] = useState(false);
   // Memory Value
   const [memory, setMemory] = useState()
 
 
   // Reset functions for states
   const clearDisplay = () => {
-    setDisplay("")
+    setDisplay("");
   }
 
   const clearResult = () => {
-    setResult()
+    setResult();
   }
 
   const clearOperator = () => {
-    setOperator("")
+    setOperator("");
   }
 
   const clearMemory = () => {
-    setMemory()
+    setMemory();
   }
 
   // Function to handle number button clicks
   const handleNumber = (button) => {
     // If the final answer was previously evaluated, any new number inputs will overwrite the display
     if (wasEvaluated) {
-      setDisplay("" + button.value)
+      setDisplay("" + button.value);
       wasEvaluated = false;
     } 
     // Else if the display is 0, any new number input will replace the display (this prevents leading 0's)
     else if (display === "0") {
-      setDisplay("" + button.value)
+      setDisplay("" + button.value);
     } 
     // Else keep appending new number inputs onto the end of the display value number string
     else {
-      setDisplay(display + button.value)
+      setDisplay(display + button.value);
     }
   }
   
   // Function to handle clear and all clear button clicks
   const handleClear = (button) => {
-    clearDisplay()
+    clearDisplay();
 
     if (button.value === "All Clear") {
-      clearResult()
-      clearOperator()
+      clearResult();
+      clearOperator();
       clearMemory();
     }
   }
@@ -83,7 +81,7 @@ function Calculator() {
         calculation = calculation.toPrecision(decimalPrecision);
       }
     }
-    return calculation
+    return calculation;
   }
 
   // Calculation returns the resulting value when using the current operator on the previous result value and the current display value
@@ -145,7 +143,7 @@ function Calculator() {
         let calculation = calculate(operator);
         // If a valid calculation was performed, then return the 
         if (calculation !== null) {
-          setResult(calculation)
+          setResult(calculation);
         }
       }
     }
@@ -159,7 +157,7 @@ function Calculator() {
   // Handle Equal button clicks
   const handleEqual = () => {
     // Perform any outstanding calculations and update the display
-    let calculation = calculate(operator)
+    let calculation = calculate(operator);
     if (calculation !== null) {
       setDisplay("" + calculation);
       clearResult();
@@ -194,25 +192,29 @@ function Calculator() {
     let calculation;
     switch (button.value) {
       case "Memory Save":
-        setMemory(formatCalculation(display));
+        if (display) {
+          setMemory(formatCalculation(display));
+        }
         break;
         
       case "Memory Clear":
-        setMemory()
+        setMemory();
         break;
         
       case "Memory Recall":
-        setDisplay(formatCalculation(memory))
+        if (memory) {
+          setDisplay(formatCalculation(memory));
+        }
         break;
     
       case "Memory Addition":
         calculation = Number(memory) + Number(display);
-        setMemory(formatCalculation(calculation))
+        setMemory(formatCalculation(calculation));
         break;
     
       case "Memory Subtract":
         calculation = Number(memory) - Number(display);
-        setMemory(formatCalculation(calculation))
+        setMemory(formatCalculation(calculation));
         break;
     
       default:

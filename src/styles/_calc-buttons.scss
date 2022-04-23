@@ -5,24 +5,19 @@
   display: grid;
   grid-template-columns: repeat(4,1fr);
   grid-auto-rows: 4rem;
-  // grid-template-areas: 
-  //     "ac     c       divide     multiply"
-  //     "seven  eight   nine        subtract"
-  //     "four   five    six         add"
-  //     "one    two     three       equal"
-  //     "sign   zero    decimal     equal";
   grid-template-areas: 
-      ".      mc      ac          c"
-      "ms     m-plus  square-root divide"
-      "mr     m-minus percent     multiply"
-      "seven  eight   nine        subtract"
-      "four   five    six         add"
-      "one    two     three       equal"
-      "sign   zero    decimal     equal";
+    ".      mc      ac          c"
+    "ms     m-plus  square-root divide"
+    "mr     m-minus percent     multiply"
+    "seven  eight   nine        subtract"
+    "four   five    six         add"
+    "one    two     three       equal"
+    "sign   zero    decimal     equal";
   gap: 0.25rem;
 
   button {
-    font-family: $font-family;
+    position: relative;
+    font-family: $monospace-font;
     font-size: 1.5rem;
     border: none;
     border-radius: 0.5rem;
@@ -31,9 +26,8 @@
     color: $white;
 
     &:hover {
-      @include hoverColor($main-light)
+      @include hoverColor($main-light);
     }
-
     &:not(.number, .sign, .decimal) {
       background-color: $main;
 

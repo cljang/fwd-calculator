@@ -6,7 +6,7 @@ function CalcButtons({handleButtonClick}) {
   const createButton = (button, index) => {
     const style = {
       gridArea: button.className
-    }
+    };
   
     return (
       <button 
