@@ -1,5 +1,4 @@
 @use "variables" as *;
-@use "mixins" as *;
 
 .calc-buttons {
   display: grid;
@@ -26,22 +25,15 @@
     color: $white;
 
     &:hover {
-      @include hoverColor($main-light);
+      filter: brightness(0.8) saturate(1.25);
     }
+
     &:not(.number, .sign, .decimal) {
       background-color: $main;
-
-      &:hover {
-        @include hoverColor($main)
-      }
-  
     }
 
     &.equal {
       background-color: $accent;
-      &:hover {
-        @include hoverColor($accent)
-      }
     }
   }
 }
